@@ -1,6 +1,6 @@
 You said this isn't just a chatbot — so I built the two things that make an AI safe to actually let near your inbox, and deployed it before writing this.
 
-Demo: https://ai-employee-demo.vercel.app
+Demo: https://ai-employee-demo-mu.vercel.app
 Source: https://github.com/exelentshakil/ai-employee-demo
 
 - Ask: every answer is retrieved from an ingested knowledge base and cited to the source doc. Ask "can I approve a $250 refund myself?" — it reads your SOP and says no, escalate to a manager. Ask something outside your docs and it says it has no source rather than guessing.

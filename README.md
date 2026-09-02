@@ -4,7 +4,7 @@ A working demo built for the Upwork brief *"AI Automation Specialist for AI
 Employee"*. Not a chatbot wrapper: the two properties that make an AI safe to
 put near a real inbox are enforced in the architecture.
 
-**Live demo:** https://ai-employee-demo.vercel.app
+**Live demo:** https://ai-employee-demo-mu.vercel.app
 
 ## The two boundaries
 
