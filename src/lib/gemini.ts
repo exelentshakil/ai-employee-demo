@@ -1,14 +1,25 @@
-const DEFAULT_MODELS = "gemini-2.0-flash,gemini-1.5-flash,gemini-1.5-flash-8b";
+/**
+ * Model ids move fast and old ones start returning 404 with no warning, so the
+ * chain is read from env and tried in order. If every entry fails the caller
+ * falls back to a deterministic extractive answer — the demo never hard-fails
+ * on a provider deprecation.
+ */
+const DEFAULT_MODELS = "gemini-3.6-flash,gemini-3.5-flash,gemini-flash-latest,gemini-2.5-flash";
 
 function models(): string[] {
-  return (process.env.GEMINI_MODELS || DEFAULT_MODELS).split(",").map((m) => m.trim());
+  return (process.env.GEMINI_MODELS || DEFAULT_MODELS)
+    .split(",")
+    .map((m) => m.trim())
+    .filter(Boolean);
 }
 
 export function geminiConfigured(): boolean {
   return Boolean(process.env.GEMINI_API_KEY);
 }
 
-export async function generateWithFallback(prompt: string): Promise<{ text: string; model: string } | null> {
+export async function generateWithFallback(
+  prompt: string
+): Promise<{ text: string; model: string } | null> {
   const key = process.env.GEMINI_API_KEY;
   if (!key) return null;
 
@@ -20,15 +31,29 @@ export async function generateWithFallback(prompt: string): Promise<{ text: stri
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            contents: [{ parts: [{ text: prompt }] }],
-            generationConfig: { temperature: 0.2, maxOutputTokens: 500 },
+            contents: [{ role: "user", parts: [{ text: prompt }] }],
+            generationConfig: {
+              temperature: 0.2,
+              // These are thinking models: reasoning tokens draw from the same
+              // budget, so a tight cap truncates the answer mid-sentence.
+              maxOutputTokens: 4000,
+            },
           }),
         }
       );
       if (!res.ok) continue;
+
       const data = await res.json();
-      const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-      if (typeof text === "string" && text.trim()) return { text: text.trim(), model };
+      const parts = data?.candidates?.[0]?.content?.parts;
+      if (!Array.isArray(parts)) continue;
+
+      const text = parts
+        .filter((p: { text?: string; thought?: boolean }) => p.text && !p.thought)
+        .map((p: { text: string }) => p.text)
+        .join("")
+        .trim();
+
+      if (text) return { text, model };
     } catch {
       continue;
     }

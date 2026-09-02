@@ -22,6 +22,15 @@ const ACTION_LABEL: Record<(typeof ActTypes)[number], string> = {
   calendar_note: "Draft calendar note",
 };
 
+/** Models still emit bold/heading syntax sometimes; the queue renders plain text. */
+function stripMarkdown(text: string): string {
+  return text
+    .replace(/\*\*(.+?)\*\*/g, "$1")
+    .replace(/^#{1,6}\s+/gm, "")
+    .replace(/^\s*[-*]\s+/gm, "• ")
+    .trim();
+}
+
 export async function GET() {
   return NextResponse.json({ actions: store.actions });
 }
@@ -41,12 +50,13 @@ export async function POST(req: NextRequest) {
   const prompt =
     `You are drafting a "${ACTION_LABEL[action_type]}" for internal review — it will NOT be sent ` +
     `automatically. Ground it only in the context below; note any gap in [brackets] instead of ` +
-    `inventing details. Keep it under 100 words.\n\nContext:\n${context || "(no matching internal docs)"}` +
+    `inventing details. Keep it under 100 words. Reply with plain text only — no markdown, no ` +
+    `asterisks, no headings.\n\nContext:\n${context || "(no matching internal docs)"}` +
     `\n\nRequest: ${request_text}`;
 
   const generated = await generateWithFallback(prompt);
   const draft =
-    generated?.text ??
+    (generated?.text && stripMarkdown(generated.text)) ||
     (chunks.length
       ? `[DRAFT — extractive fallback] Based on ${citations.map((c) => c.title).join(", ")}: ${chunks
           .map((c) => c.chunk_text)

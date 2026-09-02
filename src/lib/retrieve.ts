@@ -7,12 +7,30 @@ const STOPWORDS = new Set([
   "our", "please", "with", "about", "that", "this", "it", "be",
 ]);
 
+/**
+ * Light suffix stripper so "refund" matches "refunds" and "approve" matches
+ * "approved". Without it the retrieval misses obvious hits and the assistant
+ * wrongly reports having no source.
+ */
+function stem(token: string): string {
+  let t = token;
+  for (const suffix of ["ing", "ed", "es", "s"]) {
+    if (t.length > suffix.length + 2 && t.endsWith(suffix)) {
+      t = t.slice(0, -suffix.length);
+      break;
+    }
+  }
+  // Collapse "approve"/"approved" and "price"/"prices" onto the same stem.
+  return t.length > 3 && t.endsWith("e") ? t.slice(0, -1) : t;
+}
+
 function tokenize(text: string): string[] {
   return text
     .toLowerCase()
     .replace(/[^a-z0-9\s]/g, " ")
     .split(/\s+/)
-    .filter((t) => t.length > 1 && !STOPWORDS.has(t));
+    .filter((t) => t.length > 1 && !STOPWORDS.has(t))
+    .map(stem);
 }
 
 export function retrieveTopChunks(query: string, k = 3): ChunkRecord[] {

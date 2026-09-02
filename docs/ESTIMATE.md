@@ -7,12 +7,13 @@ Rate: **$150/hr** (BarakahSoft standard). Posting budgets $15–20/hr — see
 
 | Item | Hours |
 |---|---|
-| Grounded knowledge-base ingestion + retrieval | 3 |
-| Cited Q&A endpoint with Gemini + deterministic fallback | 3 |
+| Grounded knowledge-base ingestion + stemmed retrieval | 3 |
+| Cited Q&A endpoint, Gemini model fallback chain + deterministic fallback | 3 |
 | Approval-gated Action Queue (draft → pending → approve/reject) | 3 |
-| Console UI (Ask / Actions / Knowledge tabs) | 3 |
+| Console UI — Ask / Actions / Knowledge, light + dark themes | 4 |
+| Traffic analytics (tracker, API, dashboard, graceful degradation) | 2 |
 | Health/audit endpoints, deploy, PRD, estimate | 2 |
-| **Total** | **14 hrs — $2,100, billed as Job (already delivered)** |
+| **Total** | **17 hrs — delivered at no cost with this bid** |
 
 ## Phase 1 — Real connections (4–6 weeks, ~20 hrs/week)
 
