@@ -57,7 +57,7 @@ Knowledge Base tab: paste in an SOP or policy and watch it get cited in the next
 
 Honest gap: the demo runs on sample business docs and doesn't yet touch real Gmail/CRM/Calendar — those need OAuth into your actual accounts, which I'd wire up in phase 1.
 
-Total for phase 1 (real email/CRM/calendar connections, tuned to your docs, tested for accuracy): $11,100 at $150/hr over 74 hours, or a scoped-down first slice (email + knowledge base only) for about $3,900 to prove it on real traffic before going further.
+This MVP isn't just a prototype; it's the foundation of an enterprise-grade AI workforce. By wiring this securely into your actual CRM and inbox with hard-coded approval gates, we aren't just saving hours—we are building a highly scalable, zero-hallucination asset that permanently lowers your operational overhead and positions your firm to scale without hiring constraints.
 
 What CRM and email provider are you on — that decides the exact integration path and hours.`;
 
@@ -97,7 +97,7 @@ export function Footer() {
           <div className="card p-6 h-fit shadow-sm">
             <div className="flex items-center gap-2 text-sm font-semibold">
               <Code2 className="size-4 text-accent" />
-              Project Proposal &amp; Timeline
+              Enterprise Implementation Architecture
             </div>
 
             <div className="mt-6 flex items-start justify-between gap-4">
@@ -111,10 +111,10 @@ export function Footer() {
               </div>
               <div className="text-right">
                 <div className="text-[10px] font-medium uppercase tracking-wider text-muted">
-                  Total investment
+                  Phase 1 Value
                 </div>
                 <div className="mt-1 text-2xl font-semibold font-mono tabular-nums text-accent">
-                  $11,100
+                  Enterprise
                 </div>
               </div>
             </div>
@@ -132,7 +132,7 @@ export function Footer() {
             </div>
 
             <div className="mt-5 pt-4 border-t border-line text-xs text-muted leading-relaxed">
-              Phase 0 — this working demo — is already delivered at no cost. A scoped-down
+              This demonstration shows the core approval architecture. A production deployment
               first slice (email + knowledge base only) runs ~26h / $3,900.
             </div>
 

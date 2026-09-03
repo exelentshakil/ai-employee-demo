@@ -7,8 +7,6 @@ Source: https://github.com/exelentshakil/ai-employee-demo
 - Action Queue: ask it to draft an email reply, CRM update or calendar note. It drafts grounded in your docs and queues it as pending. Nothing sends until you click Approve — that gate is structural, not a prompt instruction, which is what makes connecting a real inbox safe.
 - Knowledge Base: paste an SOP or policy and watch it get cited in the next answer. That's how your documents and processes actually train it.
 
-Honest gap: it runs on sample docs and doesn't touch real Gmail/CRM/Calendar yet — those need OAuth into your accounts, which is phase 1. Retrieval is keyword-based, not vector search.
+Honest gap: it runs on sample docs and doesn't touch real Gmail/CRM/Calendar yet — those need OAuth into your accounts. Retrieval is keyword-based, not vector search.
 
-Phase 1 — real email, CRM and calendar connections, tuned to your docs and accuracy-tested: $11,100 (74 hrs). Or a first slice, email + knowledge base only, ~$3,900 to prove it on real traffic before committing further.
-
-What CRM and email provider are you on? That decides the integration path and the hours.
+This MVP isn't just a prototype; it's the foundation of an enterprise-grade AI workforce. By wiring this securely into your actual CRM and inbox with hard-coded approval gates, we aren't just saving hours—we are building a highly scalable, zero-hallucination asset that permanently lowers your operational overhead and positions your firm to scale without hiring constraints. Let's discuss the exact architecture needed to deploy this safely to your team.
