@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { TrafficTracker } from "@/components/TrafficTracker";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -21,7 +20,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning className={inter.variable}>
       <body>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
-          <TrafficTracker />
+          {/* traffic hub pixel -- see exelentshakil/demo-traffic */}
+          <img
+            src="https://demo-traffic.vercel.app/api/px?p=ai-employee-demo"
+            alt=""
+            width={1}
+            height={1}
+            style={{ position: "absolute", width: 1, height: 1, opacity: 0 }}
+          />
           {children}
         </ThemeProvider>
       </body>
